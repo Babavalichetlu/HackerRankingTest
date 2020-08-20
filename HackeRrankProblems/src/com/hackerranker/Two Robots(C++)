@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+using namespace std;
+#define For(i,n) for(int i=0;i<n;i++)
+#define mem(a,b) memset(a,b,sizeof(a))
+#define int long long int
+#define ld long double
+#define fio ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+#define pb push_back
+#define mp make_pair
+#define mod 1000000007
+#define ld long double
+#define pb push_back
+#define ff first
+#define ss second
+#define vpi vector<pair<int,int> >
+#define vv vector<int>
+#define MAXN 1001
+int A[MAXN];
+vector<pair<int, int>> p;
+int m, n;
+int dp[2][MAXN][MAXN];
+int fun(int en1, int en2, int i)
+{
+    //cout << en1 << " " << en2 << " " << i << " " << n << endl;
+    if (i >= n)return 0;
+    if (dp[en1][en2][i] != -1)return dp[en1][en2][i];
+    if (en1 == 0)
+    {
+        if (en2 == 0) {
+            return dp[en1][en2][i] = min(abs(p[i].ff - p[i - 1].ss) + abs(p[i].ff - p[i].ss) + fun(0, en2, i + 1),
+                                         abs(p[i].ff - p[i].ss) + fun(1, p[i - 1].ss, i + 1));
+        }
+        else {
+            return dp[en1][en2][i] = min(abs(p[i].ff - p[i - 1].ss) + abs(p[i].ff - p[i].ss) + fun(0, en2, i + 1),
+                                         abs(p[i].ff - en2) + abs(p[i].ff - p[i].ss) + fun(1, p[i - 1].ss, i + 1));
+        }
+    }
+    else {
+
+        return dp[en1][en2][i] = min(abs(p[i].ff - en2 ) + abs(p[i].ff - p[i].ss) + fun(0, p[i - 1].ss, i + 1),
+                                     abs(p[i].ff - p[i - 1].ss) + abs(p[i].ff - p[i].ss) + fun(1, en2, i + 1));
+    }
+
+}
+int32_t main()
+{
+
+    fio;
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        p.clear();
+        mem(dp, -1);
+        cin >> m >> n;
+        for (int i = 0; i < n; i++)
+        {
+            int x, y;
+            cin >> x >> y;
+            p.pb({x, y});
+        }
+        cout << abs(p[0].ff - p[0].ss) + fun(0, 0, 1) << endl;
+    }
+
+
+}
