@@ -1,0 +1,65 @@
+WholeMinute Dilemma(C++) 12 Test cases pass
+-----------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+string ltrim(const string &);
+string rtrim(const string &);
+
+long playlist(vector<int> time) {
+    int count=0;
+    int a[60]={0};
+    for(int i=0;i<time.size();i++){
+    a[time[i]%60]++;
+    }
+    int i=1,j=59;
+    while(i<j){ //for rules 1-29
+    count+=a[i]*a[j];
+    i++;
+    j--;
+    }
+
+    //for group[30] and group[0]
+    count+=(a[0]*(a[0]-1)/2)+(a[30]*(a[30]-1)/2);    
+    return count;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string songs_count_temp;
+    getline(cin, songs_count_temp);
+    int songs_count = stoi(ltrim(rtrim(songs_count_temp)));
+    vector<int> songs(songs_count);
+    for (int i = 0; i < songs_count; i++) {
+        string songs_item_temp;
+        getline(cin, songs_item_temp);
+        int songs_item = stoi(ltrim(rtrim(songs_item_temp)));
+        songs[i] = songs_item;
+    }
+
+    long result = playlist(songs);
+    fout << result << "\n";
+    fout.close();
+    return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
+}
