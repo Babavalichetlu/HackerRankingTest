@@ -1,0 +1,48 @@
+Playlist length(Java 7)
+----------------------
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+      Scanner sc=new Scanner(System.in);
+        int q=sc.nextInt();
+        long totalSeconds=0;
+        for(int i=0;i<q;i++){
+            long min=sc.nextInt();
+            long sec=sc.nextInt();
+            totalSeconds+=(min*60)+sec;
+        }
+        long h=0,m=0,s=0;
+        if(totalSeconds>=3600){
+            h=totalSeconds/3600;
+            long sec2=totalSeconds%3600;
+            if(sec2>59){
+            long m2=sec2/60;
+                s=sec2%60;
+            if(m2>=60){
+                m=m2%60;
+                h+=m2/60;
+            }
+                else
+                    m=m2;
+            }//end of if sec2>59
+            
+            else
+            s=sec2;
+            
+        }//end of if totalSec>=3600
+        
+        else if(totalSeconds<3600)
+            {
+            m=totalSeconds/60;
+            s=totalSeconds%60;
+            }
+
+    System.out.println(h+" "+m+" "+s);
+    }//end of main
+}//end of class
