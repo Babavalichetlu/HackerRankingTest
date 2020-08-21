@@ -1,0 +1,14 @@
+The information of customers is stored in the Customer table.
+Write a query to print the ids,first names, and last names of the customers whose combined name lenght
+ie.,
+the sum of the first name and last name is less than 12.the ids and names should be orinted in the ascending order of the combined name lenght.
+if two or more customers have the same combined name lenght then sort the result in the lexicographic order of the full names.
+if two or more  customers have the same full name then sort the result by ascending order of IDs
+
+Query:(MySql)
+--------
+SELECT CUSTOMER.ID, CUSTOMER.FIRST_NAME,CUSTOMER.LAST_NAME 
+FROM CUSTOMER
+WHERE CHAR_LENGHT(CUSTOMER.FIRST_NAME)+CHAR_LENGHT(CUSTOMER.LAST_NAME)<12
+ORDER BY CHAR_LENGHT(CUSTOMER.FIRST_NAME)+CHAR_LENGHT(CUSTOMER.LAST_NAME),
+CONCAT(CUSTOMER.FIRST_NAME,CUSTOMER.LAST_NAME),CUSTOMER.ID ASC
