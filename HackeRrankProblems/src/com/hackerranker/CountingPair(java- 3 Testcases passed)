@@ -1,0 +1,13 @@
+public static int countPairs(List<Integer> numbers,int k){
+Set<String> pairs=new HashSet<String>();
+int[] arr = numbers.stream().mapToInt(i -> i).toArray();
+for(int i=0;i<arr.length;i++){
+  for(int j=i+1;j<arr.length;j++){
+    BigInteger bigInt=new BigInteger(""+arr[i]);
+	if(bigInt.add(new BigInteger(""+k)).equals(new BigInteger(""arr[j]))){
+	 pairs.add(new BigInteger(""+arr[i])+""+new BigInteger(""+arr[j]));
+	 }
+}
+}
+return pair.size();
+}
