@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+void quicksort(int *arr, int low, int high){
+  int pivot, i, j, temp;
+  if(low < high) {
+    pivot = low;
+    i = low;
+    j = high;
+    while(i < j) {
+      while(arr[i] <= arr[pivot] && i <= high)
+        i++;
+      while(arr[j] > arr[pivot] && j >= low)
+        j--;
+      if(i < j) {
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+    }
+    temp = arr[j];
+    arr[j] = arr[pivot];
+    arr[pivot] = temp;
+    quicksort(arr, low, j-1);
+    quicksort(arr, j+1, high);
+  }
+}
+int main() {
+
+    int n,k,i,a,b,arr[100]={0},total=0,j;
+    scanf("%d %d",&n,&k);
+    for(i=0;i<n;i++){
+        scanf("%d %d",&a,&b);
+        if(b==0) total += a;
+        else arr[i] = a;
+    }
+    quicksort(arr,0,n-1);
+    for(i=n-1;i>=0;i--){
+        if(k>0) total += arr[i];
+        else total -= arr[i];
+        k--;
+    }
+    printf("%d",total);
+    return 0;
+}
