@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        int K = in.nextInt();
+        List<Integer> L = new ArrayList<>();
+        int sum=0;
+        for(int i=0;i<N;i++) {
+            int tL = in.nextInt();
+            int tT = in.nextInt();
+            if(tT==0) {
+                sum+=tL;
+            } else {
+                L.add(tL);
+            }
+        }
+        Collections.sort(L);
+        int sL = L.size();
+        for(int i = 0;i<Math.min(K,sL);i++) {
+            sum+=L.get(sL-i-1);
+        }
+        for(int i=0;i<sL-Math.min(K,sL);i++) {
+            sum-=L.get(i);
+        }
+        System.out.println(sum);
+    }
+}
