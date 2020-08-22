@@ -33,4 +33,4 @@ public class Solution {
         System.out.printf(second, array[0]);
         System.out.printf(third, array[count-1]);
     }
-}
+} 
