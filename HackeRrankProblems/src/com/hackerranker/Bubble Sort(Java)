@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        String first = "Array is sorted in %d swaps.\n";
+        String second = "First Element: %d\n";
+        String third = "Last Element: %d\n";
+        Scanner sc = new Scanner(System.in);
+        int count = sc.nextInt();
+        int[] array = new int[count];
+        for(int i = 0; i < count; i++){
+            array[i] = sc.nextInt();
+        }
+        boolean swapped = false;
+        int swaps = 0;
+        do{
+            swapped = false;
+            for(int i = 0; i < count-1; i++){
+                if(array[i] > array[i+1]){
+                    swaps++;
+                    swapped = true;
+                    //swap
+                    int temp = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = temp;
+                }     
+            }
+        }
+        while(swapped);
+        System.out.printf(first, swaps);
+        System.out.printf(second, array[0]);
+        System.out.printf(third, array[count-1]);
+    }
+}
