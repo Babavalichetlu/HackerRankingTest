@@ -1,0 +1,2 @@
+SELECT id,name from customer
+ORDER by name DESC,id ASC; 
