@@ -1,0 +1,72 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+
+
+class Result {
+
+    /*
+     * Complete the 'countPalindromes' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
+     */
+     static String reverse(String str){
+        String rev="";
+        for(int i=str.length()-1;i>=0;i--){
+            rev=rev+str.charAt(i);
+        }
+        return rev;
+    }
+     static String getSubstrin(String str, int i, int j){
+        if(j>i){
+            return str.substring(i,j);
+        }else{
+            return str.substring(j,i);
+        }
+    }
+
+    public static int countPalindromes(String inputPalindrom) {
+    int length=inputPalindrom.length();
+        int substringLength=2;
+        int count=length+1;
+        //we create substrings to check for palindromes untill the substring length is less than the length of the given string
+        while(substringLength<=length){
+            for(int i=0;i<=length-substringLength;i++){
+                String subString=getSubstrin(inputPalindrom,i,substringLength);
+                //Only when the substring has more then one characters we check for palindrome
+                if(subString.length()>1){
+                    String subStringReverse=""+subString.charAt(0);
+                    subStringReverse=subStringReverse+subString.charAt(subString.length()-1);
+                    subStringReverse=reverse(subStringReverse);
+                    char c=subString.charAt(0);
+                    int flag=0;
+                    for(int j=0;j<subString.length()/2;j++){
+                        if(subString.charAt(j)!=c ||subStringReverse.charAt(j)!=c){
+                            flag=1;
+                            break;
+                        }
+                    }
+                    if(flag==0){
+                        count++;
+                    }
+                }
+            }
+            substringLength++;
+        }
+        return count;
+
+    }
+
+}
+
+public class Solution {
