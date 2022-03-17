@@ -1,0 +1,53 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'fetchItemsToDisplay' function below.
+#
+# The function is expected to return a STRING_ARRAY.
+# The function accepts following parameters:
+#  1. 2D_STRING_ARRAY items
+#  2. INTEGER sortParameter
+#  3. INTEGER sortOrder
+#  4. INTEGER itemsPerPage
+#  5. INTEGER pageNumber
+#
+
+def fetchItemsToDisplay(items, sortParameter, sortOrder, itemPerPage, pageNumber):
+    items.sort(key=lambda x: int(x[sortParameter]) if sortParameter > 0 else x[sortParameter], reverse=sortOrder==1)
+    return [n for n,_,_ in items[pageNumber*itemPerPage: (1+pageNumber)*itemPerPage]]
+
+print(fetchItemsToDisplay([["p1", "1", "2"], ["p2", "2", "1"]], 0, 0, 1,0))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    items_rows = int(input().strip())
+    items_columns = int(input().strip())
+
+    items = []
+
+    for _ in range(items_rows):
+        items.append(input().rstrip().split())
+
+    sortParameter = int(input().strip())
+
+    sortOrder = int(input().strip())
+
+    itemsPerPage = int(input().strip())
+
+    pageNumber = int(input().strip())
+
+    result = fetchItemsToDisplay(items, sortParameter, sortOrder, itemsPerPage, pageNumber)
+
+    fptr.write('\n'.join(result))
+    fptr.write('\n')
+
+    fptr.close()
