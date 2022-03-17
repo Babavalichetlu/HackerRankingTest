@@ -1,0 +1,78 @@
+Whole minute dilemma
+----------------------
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+
+class Result {
+
+    /*
+     * Complete the 'playlist' function below.
+     *
+     * The function is expected to return a LONG_INTEGER.
+     * The function accepts INTEGER_ARRAY songs as parameter.
+     */
+
+    public static long playlist(List<Integer> songs) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+
+
+int count = 0;
+
+for (int t : songs) {
+
+if (map.containsKey(((60 - t % 60)) % 60))
+
+{
+
+count += map.get((60 - t % 60) % 60);
+
+}
+
+map.put(t % 60, map.getOrDefault(t % 60, 0) + 1);
+
+}
+
+return count;
+
+    }
+
+}
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int songsCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> songs = IntStream.range(0, songsCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().replaceAll("\\s+$", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .map(String::trim)
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        long result = Result.playlist(songs);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
