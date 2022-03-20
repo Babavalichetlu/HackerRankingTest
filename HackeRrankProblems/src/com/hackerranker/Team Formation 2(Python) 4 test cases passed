@@ -1,0 +1,64 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'countTeams' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY skills
+#  2. INTEGER minPlayers
+#  3. INTEGER minLevel
+#  4. INTEGER maxLevel
+#
+
+def countTeams(skills, k, l, r):
+    count = 0
+    for v in skills:
+        if v >= l and v <= r:
+            count += 1
+    
+    if count == 0:
+        return 0
+    if count == k:
+        return 1
+
+    total = 0
+    print(list(range(k, count+1)))
+    for p in range(k, count+1):
+        print(p, count, k)
+        print((count/p))
+        total += (count//p)
+    return int(total)
+
+    # Write your code here
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    skills_count = int(input().strip())
+
+    skills = []
+
+    for _ in range(skills_count):
+        skills_item = int(input().strip())
+        skills.append(skills_item)
+
+    minPlayers = int(input().strip())
+
+    minLevel = int(input().strip())
+
+    maxLevel = int(input().strip())
+
+    result = countTeams(skills, minPlayers, minLevel, maxLevel)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
